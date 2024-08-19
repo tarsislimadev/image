@@ -4,8 +4,6 @@ const { port } = require('./config.js')
 
 app.use(express.static('public'))
 
-app.get('/image', (req, res) => {
-  res.json({ query: req.query })
-})
+app.get('/image', (req, res) => res.sendFile('/data/image.png'))
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
