@@ -1,3 +1,5 @@
+# https://pillow.readthedocs.io/en/stable/index.html
+
 from PIL import ImageDraw, Image
 
 image = Image.new('RGBA', (200, 200), '#ff0000')
