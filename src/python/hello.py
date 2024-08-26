@@ -1,19 +1,15 @@
-from flask import Flask, send_file
+from flask import Flask, request, send_file
 from PIL import ImageDraw, Image
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="", static_folder="public")
 
-filename = './image.png'
-
-@app.route("/")
-def index_url():
-  return "<p>Hello, World!</p>"
+filename = "./image.png"
 
 @app.route("/image")
 def image_url():
-  image = Image.new('RGBA', (200, 200), '#ff0000')
+  width, height, text =  int(request.args["width"]), int(request.args["height"]), request.args["text"]
+  image = Image.new("RGBA", (width, height), "#ff0000")
   draw = ImageDraw.Draw(image)
-  draw.text((10, 10), "hello")
-  draw.text((10, 25), "world")
-  image.save(filename, format='PNG')
-  return send_file(filename, download_name='image.png', mimetype='image/png') # , as_attachment=True)
+  draw.text((10, 10), text)
+  image.save(filename, format="PNG")
+  return send_file(filename, download_name="image.png", mimetype="image/png")
