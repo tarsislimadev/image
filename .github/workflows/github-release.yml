@@ -1,0 +1,25 @@
+name: GitHub release
+
+on:
+  push:
+    branches: 
+      - 'main'
+  workflow_dispatch:
+
+jobs:
+  artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+
+      - name: Install Docker Compose
+        run: sudo apt install -y docker-compose
+
+      - name: Install Docker Compose
+        run: docker-compose run app flet pack image.py --name "image" --product-name "image" 
+
+      - name: Create release
+        run: gh release create v$( date +'%Y%m%d%H%M%S' ) ./dist/image
+        env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
