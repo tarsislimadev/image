@@ -2,10 +2,18 @@ version: '3'
 
 services:
   nodejs:
-    image: 'tmvdl/projects:image'
     build: './src/nodejs'
     volumes:
       - './src/nodejs:/app'
+      - './data:/data'
+    ports:
+      - '8000:80'
+
+  python:
+    image: 'tmvdl/projects:image'
+    build: './src/python'
+    volumes:
+      - './src/python:/app'
       - './data:/data'
     ports:
       - '8080:80'
