@@ -20,6 +20,6 @@ jobs:
         run: docker-compose run app flet pack image.py --name "image" --product-name "image" 
 
       - name: Create release
-        run: gh release create v$( date +'%Y%m%d%H%M%S' ) /app/dist/image
+        run: gh release create v$( date +'%Y%m%d%H%M%S' ) $( find * -name image )
         env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
